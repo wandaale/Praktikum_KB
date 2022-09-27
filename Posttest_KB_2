@@ -1,0 +1,34 @@
+# POSTTEST 1
+
+### Nama : Wanda Nurhaliza
+### NIM  : 2109106055
+import pandas as pd
+import numpy as np
+df = pd.read_csv("Hotel_Reviews.csv")
+data = {
+    'jumlah_record': 0,
+    'nama_attribute': [],
+    'objek_attribute':0,
+    'angka_attribute': 0,
+    'null_attribute': 0
+}
+
+data['jumlah_record'] = df.shape[0]
+data['nama_attribute'] = list(df.columns.values)
+data['null_attribute'] = list(df.loc[:, df.isnull().any()].columns)
+data['objek_attribute'] = list(df.select_dtypes(['object']).columns)
+data['angka_attribute'] = list(df.select_dtypes(['float64', 'int64']).columns)
+print ("TAMPILAN DATA")
+print ("Jumlah Record :", data['jumlah_record'], "\n", "\n")
+print ("Nama Attribute :", data['nama_attribute'], "\n", "\n")
+print ("Jumlah Attribute (Tipe Objek) :", data['objek_attribute'], "\n", "\n")
+print ("Jumlah Attribute (Tipe Angka) :", data['angka_attribute'], "\n", "\n")     
+print ("Jumlah Attribute (Tipe Null) :", data['null_attribute'], "\n", "\n")       
+df.describe()
+df.info()
+df.corr()
+df[['Reviewer_Score']] = df[['Reviewer_Score']].astype(int)
+df.head(10)
+data = df.select_dtypes(include=np.number)
+data.head(10)
+df[{'Additional_Number_of_Scoring', 'Average_Score', 'Review_Total_Negative_Word_Counts', 'Total_Number_of_Reviews', 'Review_Total_Positive_Word_Counts', 'Total_Number_of_Reviews_Reviewer_Has_Given','Reviewer_Score', 'lat', 'lng'}].to_csv("Hotel_Reviews_Data_in_Europe.csv")
